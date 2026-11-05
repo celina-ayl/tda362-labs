@@ -1,0 +1,11 @@
+# Ignore windows build files
+/bin/
+/build/
+/build.previous.*/
+
+# Linux ignores
+build/
+.ycm_extra_conf.py*
+/.vs
+
+*.blend1

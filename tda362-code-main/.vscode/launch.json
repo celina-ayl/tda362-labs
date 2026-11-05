@@ -1,0 +1,277 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "lab1-rasterization",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/lab1-rasterization/lab1-rasterization",
+            "args": [],
+            "cwd": "${workspaceFolder}/build",
+            "stopAtEntry": false,
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable GDB pretty-printing",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            "preLaunchTask": "CMake: build lab1-rasterization",
+            "osx": {
+                "MIMode": "lldb",
+                "setupCommands": []
+            },
+            "windows": {
+                "type": "cppvsdbg",
+                "program": "${workspaceFolder}/bin/lab1-rasterization.exe",
+                "cwd": "${workspaceFolder}/bin",
+                "environment": [
+                    {
+                        "name": "PATH",
+                        "value": "${workspaceFolder}/external/bin;${env:PATH}"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "lab2-textures",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/lab2-textures/lab2-textures",
+            "args": [],
+            "cwd": "${workspaceFolder}/build",
+            "stopAtEntry": false,
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable GDB pretty-printing",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            "preLaunchTask": "CMake: build lab2-textures",
+            "osx": {
+                "MIMode": "lldb",
+                "setupCommands": []
+            },
+            "windows": {
+                "type": "cppvsdbg",
+                "program": "${workspaceFolder}/bin/lab2-textures.exe",
+                "cwd": "${workspaceFolder}/bin",
+                "environment": [
+                    {
+                        "name": "PATH",
+                        "value": "${workspaceFolder}/external/bin;${env:PATH}"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "lab3-camera",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/lab3-camera/lab3-camera",
+            "args": [],
+            "cwd": "${workspaceFolder}/build",
+            "stopAtEntry": false,
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable GDB pretty-printing",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            "preLaunchTask": "CMake: build lab3-camera",
+            "osx": {
+                "MIMode": "lldb",
+                "setupCommands": []
+            },
+            "windows": {
+                "type": "cppvsdbg",
+                "program": "${workspaceFolder}/bin/lab3-camera.exe",
+                "cwd": "${workspaceFolder}/bin",
+                "environment": [
+                    {
+                        "name": "PATH",
+                        "value": "${workspaceFolder}/external/bin;${env:PATH}"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "lab4-shading",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/lab4-shading/lab4-shading",
+            "args": [],
+            "cwd": "${workspaceFolder}/build",
+            "stopAtEntry": false,
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable GDB pretty-printing",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            "preLaunchTask": "CMake: build lab4-shading",
+            "osx": {
+                "MIMode": "lldb",
+                "setupCommands": []
+            },
+            "windows": {
+                "type": "cppvsdbg",
+                "program": "${workspaceFolder}/bin/lab4-shading.exe",
+                "cwd": "${workspaceFolder}/bin",
+                "environment": [
+                    {
+                        "name": "PATH",
+                        "value": "${workspaceFolder}/external/bin;${env:PATH}"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "lab5-rendertotexture",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/lab5-rendertotexture/lab5-rendertotexture",
+            "args": [],
+            "cwd": "${workspaceFolder}/build",
+            "stopAtEntry": false,
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable GDB pretty-printing",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            "preLaunchTask": "CMake: build lab5-rendertotexture",
+            "osx": {
+                "MIMode": "lldb",
+                "setupCommands": []
+            },
+            "windows": {
+                "type": "cppvsdbg",
+                "program": "${workspaceFolder}/bin/lab5-rendertotexture.exe",
+                "cwd": "${workspaceFolder}/bin",
+                "environment": [
+                    {
+                        "name": "PATH",
+                        "value": "${workspaceFolder}/external/bin;${env:PATH}"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "lab6-shadowmaps",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/lab6-shadowmaps/lab6-shadowmaps",
+            "args": [],
+            "cwd": "${workspaceFolder}/build",
+            "stopAtEntry": false,
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable GDB pretty-printing",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            "preLaunchTask": "CMake: build lab6-shadowmaps",
+            "osx": {
+                "MIMode": "lldb",
+                "setupCommands": []
+            },
+            "windows": {
+                "type": "cppvsdbg",
+                "program": "${workspaceFolder}/bin/lab6-shadowmaps.exe",
+                "cwd": "${workspaceFolder}/bin",
+                "environment": [
+                    {
+                        "name": "PATH",
+                        "value": "${workspaceFolder}/external/bin;${env:PATH}"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "project",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/project/project",
+            "args": [],
+            "cwd": "${workspaceFolder}/build",
+            "stopAtEntry": false,
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable GDB pretty-printing",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            "preLaunchTask": "CMake: build project",
+            "osx": {
+                "MIMode": "lldb",
+                "setupCommands": []
+            },
+            "windows": {
+                "type": "cppvsdbg",
+                "program": "${workspaceFolder}/bin/project.exe",
+                "cwd": "${workspaceFolder}/bin",
+                "environment": [
+                    {
+                        "name": "PATH",
+                        "value": "${workspaceFolder}/external/bin;${env:PATH}"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "pathtracer",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/pathtracer/pathtracer",
+            "args": [],
+            "cwd": "${workspaceFolder}/build",
+            "stopAtEntry": false,
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable GDB pretty-printing",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            "preLaunchTask": "CMake: build pathtracer",
+            "osx": {
+                "MIMode": "lldb",
+                "setupCommands": []
+            },
+            "windows": {
+                "type": "cppvsdbg",
+                "program": "${workspaceFolder}/bin/pathtracer.exe",
+                "cwd": "${workspaceFolder}/bin",
+                "environment": [
+                    {
+                        "name": "PATH",
+                        "value": "${workspaceFolder}/external/bin;${env:PATH}"
+                    }
+                ]
+            }
+        }
+    ]
+}
