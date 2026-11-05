@@ -78,9 +78,9 @@ void initialize()
 	// Define the colors for each of the three vertices of the triangle
 	const float colors[] = {
 		//   R     G     B
-		1.0f, 1.0f, 1.0f, // White
-		1.0f, 1.0f, 1.0f, // White
-		1.0f, 1.0f, 1.0f  // White
+		0.0f, 1.0f, 1.0f, // Blue
+		0.0f, 1.0f, 1.0f, // Blue
+		1.0f, 1.0f, 0.0f  // Yellow
 	};
 	// Create a handle for the vertex color buffer
 	GLuint colorBuffer;
@@ -231,7 +231,7 @@ void display(void)
 ///////////////////////////////////////////////////////////////////////////////
 /// This function is to hold the general GUI logic
 ///////////////////////////////////////////////////////////////////////////////
-void gui()
+ void gui()
 {
 	// ----------------- Set variables --------------------------
 	ImGui::ColorEdit3("clear color", g_clearColor);
@@ -242,6 +242,7 @@ void gui()
 	            ImGui::GetIO().Framerate);
 	// ----------------------------------------------------------
 }
+ 
 
 int main(int argc, char* argv[])
 {
