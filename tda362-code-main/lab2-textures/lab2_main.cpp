@@ -125,15 +125,14 @@ void initialize()
 	// TASK 7
 	glGenVertexArrays(1, &vertexArrayObjectExplosion);
 	glBindVertexArray(vertexArrayObjectExplosion);
-	const float positionExplosion[] = {
-		// X	  Y       Z
-		8.0f, 0.0f, -8.0f, // v0
-		8.0f, 0.0f, -100.0f, // v1
-		-8.0f, 0.0f, -100.0f, // v2
-		-8.0f, 0.0f, -8.0f // v3
-	};
-
-	glGenBuffers(1, &positionExplosionBuffer);
+   const float positionExplosion[] = {
+    // X      Y      Z
+     2.0f,  0.0f, -40.0f,  // v0
+     2.0f, 10.0f, -40.0f,  // v1
+    10.0f, 10.0f, -40.0f,  // v2
+    10.0f,  0.0f, -40.0f  // v3
+    };
+  	glGenBuffers(1, &positionExplosionBuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, positionExplosionBuffer);
 	glBufferData(GL_ARRAY_BUFFER, labhelper::array_length(positionExplosion) * sizeof(float), positionExplosion, GL_STATIC_DRAW);
 	glVertexAttribPointer(0, 3, GL_FLOAT, false /*normalized*/, 0 /*stride*/, 0 /*offset*/);
