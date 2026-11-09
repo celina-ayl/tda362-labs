@@ -93,10 +93,10 @@ void initialize()
 
 	
 	float texcoords[] = {    
-		0.0f, 0.0f, // (u,v) for v0 
-		0.0f, 1.0f, // (u,v) for v1
-		1.0f, 1.0f, // (u,v) for v2
-		1.0f, 0.0f // (u,v) for v3
+    0.0f, 0.0f,    // (u,v) for v0
+	0.0f, 15.0f,   // (u,v) for v1
+	1.0f, 15.0f,   // (u,v) for v2
+	1.0f, 0.0f     // (u,v) for v3
 	};
 
 	// Task 1: create a buffer object for the texture coordinates and set it up in the vertex array object.
@@ -144,8 +144,8 @@ void initialize()
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
     //free(image);
 
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE); // horizontal 
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE); // vertical
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); // horizontal 
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT); // vertical
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
@@ -205,7 +205,6 @@ void display(void)
 	glUseProgram(0); // "unsets" the current shader program. Not really necessary.
 }
 
-//HI!!!
 
 ///////////////////////////////////////////////////////////////////////////////
 /// This function is to hold the general GUI logic
