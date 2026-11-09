@@ -6,6 +6,8 @@ precision highp float;
 // Task 1: Receive the texture coordinates
 in vec2 texCoord;
 
+in vec2 texCoordExplosion;
+
 // Task 3.4: Receive the texture as a uniform
 // Task 3.4
 layout(binding = 0) uniform sampler2D colortexture;

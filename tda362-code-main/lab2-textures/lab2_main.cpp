@@ -43,7 +43,7 @@ GLuint shaderProgram;
 
 // The vertexArrayObject here will hold the pointers to
 // the vertex data (in positionBuffer) and color data per vertex (in colorBuffer)
-GLuint positionBuffer, colorBuffer, indexBuffer, texCoordBuffer, texture,vertexArrayObject;
+GLuint positionBuffer, positionExplosionBuffer, colorBuffer, indexBuffer, indexExplosionBuffer, texCoordBuffer, texCoordExplosionBuffer, texture, textureExplosion,vertexArrayObject, vertexArrayObjectExplosion;
 
 
 
@@ -122,6 +122,48 @@ void initialize()
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, labhelper::array_length(indices) * sizeof(float), indices,
 	             GL_STATIC_DRAW);
 
+	// TASK 7
+	glGenVertexArrays(1, &vertexArrayObjectExplosion);
+	glBindVertexArray(vertexArrayObjectExplosion);
+	const float positionExplosion[] = {
+		// X	  Y       Z
+		8.0f, 0.0f, -8.0f, // v0
+		8.0f, 0.0f, -100.0f, // v1
+		-8.0f, 0.0f, -100.0f, // v2
+		-8.0f, 0.0f, -8.0f // v3
+	};
+
+	glGenBuffers(1, &positionExplosionBuffer);
+	glBindBuffer(GL_ARRAY_BUFFER, positionExplosionBuffer);
+	glBufferData(GL_ARRAY_BUFFER, labhelper::array_length(positionExplosion) * sizeof(float), positionExplosion, GL_STATIC_DRAW);
+	glVertexAttribPointer(0, 3, GL_FLOAT, false /*normalized*/, 0 /*stride*/, 0 /*offset*/);
+	glEnableVertexAttribArray(0);
+
+	const float texcoordsExplosion[] = {
+		0.0f, 0.0f,  // v0
+		0.0f, 1.0f,  // v1
+		1.0f, 1.0f,  // v2
+		1.0f, 0.0f   // v3
+	}; 
+
+	glGenBuffers(1, &texCoordExplosionBuffer);
+	glBindBuffer(GL_ARRAY_BUFFER, texCoordExplosionBuffer);
+
+	glBufferData(GL_ARRAY_BUFFER,
+		labhelper::array_length(texcoordsExplosion) * sizeof(float),
+		texcoordsExplosion,
+		GL_STATIC_DRAW);
+
+	const int indicesExplosion[] = {
+		0, 1, 3, // Triangle 1
+		1, 2, 3  // Triangle 2
+	};
+	glGenBuffers(1, &indexExplosionBuffer);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexExplosionBuffer);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, labhelper::array_length(indicesExplosion) * sizeof(float), indicesExplosion, GL_STATIC_DRAW);
+
+	glVertexAttribPointer(1, 2, GL_FLOAT, false /*normalized*/, 0 /*stride*/, 0 /*offset*/);
+	glEnableVertexAttribArray(1);
 
 	// The loadShaderProgram and linkShaderProgam functions are defined in glutil.cpp and
 	// do exactly what we did in lab1 but are hidden for convenience
@@ -157,6 +199,29 @@ void initialize()
 
 	glBindTexture(GL_TEXTURE_2D, 0);
 	stbi_image_free(image);
+
+	// TASK 7
+	unsigned char* imageExplosion = stbi_load("../scenes/textures/explosion.png", &w, &h, &comp, STBI_rgb_alpha);
+
+	glGenTextures(1, &textureExplosion);
+	glBindTexture(GL_TEXTURE_2D, textureExplosion);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0, GL_RGBA, GL_UNSIGNED_BYTE, imageExplosion);
+	//free(imageExplosion);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); // horizontal 
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT); // vertical
+
+	glGenerateMipmap(GL_TEXTURE_2D);
+	// Sets the type of filtering to be used on magnifying and
+	// minifying the active texture. These are the nicest available options.
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY_EXT, 16.0f);
+
+	glBindTexture(GL_TEXTURE_2D, 0);
+	stbi_image_free(imageExplosion);
+	//************************************
 
 }
 
@@ -206,8 +271,24 @@ void display(void)
 	glBindVertexArray(vertexArrayObject);
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
+	// Task 7: Enable transparency
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	// Bind the explosion texture
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, textureExplosion);
+
+	// Bind the explosion VAO
+	glBindVertexArray(vertexArrayObjectExplosion);
+
+	// Draw the explosion
+	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
 	glUseProgram(0); // "unsets" the current shader program. Not really necessary.
+
+	
+
 }
 
 

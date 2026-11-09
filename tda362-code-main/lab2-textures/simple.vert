@@ -4,11 +4,13 @@ layout(location = 0) in vec3 in_position;
 
 // Task 1: Add input and output variables for the texture coordinates
 layout(location = 1) in vec2 in_texCoord;
+layout(location = 2) in vec2 in_texCoordExplosion;
 
 uniform mat4 projectionMatrix;
 uniform vec3 cameraPosition;
 
 out vec2 texCoord;
+out vec2 texCoordExplosion;
 
 
 void main()
@@ -25,4 +27,5 @@ void main()
 
 	// Task 1: Copy the value received for the texcoord to the out variable sent to the fragment shader
 	texCoord = in_texCoord;
+	texCoordExplosion = in_texCoordExplosion;
 }
