@@ -157,6 +157,7 @@ void initialize()
     glBindVertexArray(vertexArrayObject2);
 	// Makes positionBuffer the current array buffer for subsequent calls.
 	glBindBuffer(GL_ARRAY_BUFFER, position2Buffer);
+	// Attaches positionBuffer to vertexArrayObject, in the 0th attribute location
 	glVertexAttribPointer(0, 3, GL_FLOAT, false /*normalized*/, 0 /*stride*/, 0 /*offset*/);
 	glBindBuffer(GL_ARRAY_BUFFER, color2Buffer);
 	glVertexAttribPointer(1, 3, GL_FLOAT, false /*normalized*/, 0 /*stride*/, 0 /*offset*/);
