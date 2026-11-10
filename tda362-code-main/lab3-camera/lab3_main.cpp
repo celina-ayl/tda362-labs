@@ -50,7 +50,6 @@ Model* cityModel = nullptr;
 Model* carModel = nullptr;
 Model* groundModel = nullptr;
 mat4 carModelMatrix(1.0f);
-
 //mat4 carModelMatrix =  glm::translate(vec3(0.0f, 5.0f, 0.0f));
 
 vec3 worldUp = vec3(0.0f, 1.0f, 0.0f);
@@ -182,9 +181,22 @@ void display()
 	glUniformMatrix4fv(mloc, 1, false, &carModelMatrix[0].x);
 	render(carModel);
 
+	// Task 3 Car 2
+/*     mat4 t = glm::translate(vec3(10.0f, 0.0f, 0.0f));
+    mat4 car2ModelMatrix = t; */
+
+    mat4 car2ModelMatrix =
+    glm::translate(vec3(20.0f, 0.0f, 0.0f)) *
+    glm::rotate(currentTime, vec3(0.0f, 1.0f, 0.0f)) *
+    glm::translate(vec3(-10.0f, 0.0f, 0.0f));
+
+	modelViewProjectionMatrix = projectionMatrix * viewMatrix * car2ModelMatrix;
+	glUniformMatrix4fv(mvploc, 1, false, &modelViewProjectionMatrix[0].x);
+	glUniformMatrix4fv(mloc, 1, false, &car2ModelMatrix[0].x);
+	render(carModel);
 
 	glUseProgram(0);
-}
+}      
 
 
 ///////////////////////////////////////////////////////////////////////////////
