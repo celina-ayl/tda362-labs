@@ -147,7 +147,15 @@ void display()
 	                               0.000000000f, 0.816496551f, 1.00000000f, 0.000000000f,   //
 	                               -0.707106769f, -0.408248276f, 1.00000000f, 0.000000000f, //
 	                               0.000000000f, 0.000000000f, -30.0000000f, 1.00000000f);  //
-	mat4 viewMatrix = constantViewMatrix;
+	//mat4 viewMatrix = constantViewMatrix;
+	// use camera direction as -z axis and compute the x (cameraRight) and y (cameraUp) base vectors
+	vec3 cameraRight = normalize(cross(cameraDirection, worldUp));
+    vec3 cameraUp = normalize(cross(cameraRight, cameraDirection));
+
+    mat3 cameraBaseVectorsWorldSpace(cameraRight, cameraUp, -cameraDirection);
+
+    mat4 cameraRotation = mat4(transpose(cameraBaseVectorsWorldSpace));
+    mat4 viewMatrix = cameraRotation * translate(-cameraPosition);
 
 	// Setup the projection matrix
 	if(w != old_w || h != old_h)
@@ -247,9 +255,11 @@ bool handleEvents(void)
 			// More info at https://wiki.libsdl.org/SDL_MouseMotionEvent
 			int delta_x = event.motion.x - g_prevMouseCoords.x;
 			int delta_y = event.motion.y - g_prevMouseCoords.y;
-			if(event.button.button == SDL_BUTTON_LEFT)
-			{
-				printf("Mouse motion while left button down (%i, %i)\n", event.motion.x, event.motion.y);
+			if (event.button.button == SDL_BUTTON(SDL_BUTTON_LEFT)) {
+				float rotationSpeed = 0.005f;
+				mat4 yaw = rotate(rotationSpeed * -delta_x, worldUp);
+				mat4 pitch = rotate(rotationSpeed * -delta_y, normalize(cross(cameraDirection, worldUp)));
+				cameraDirection = vec3(pitch * yaw * vec4(cameraDirection, 0.0f));
 			}
 			g_prevMouseCoords.x = event.motion.x;
 			g_prevMouseCoords.y = event.motion.y;
@@ -282,6 +292,15 @@ bool handleEvents(void)
 	if(state[SDL_SCANCODE_DOWN])
 	{
 		T = translate(-car_forward * speed * deltaTime) * T;
+	}
+
+	if(state[SDL_SCANCODE_W])
+	{
+		cameraPosition += cameraDirection * speed * deltaTime;
+	}
+	if(state[SDL_SCANCODE_S])
+	{
+		cameraPosition -= cameraDirection * speed * deltaTime;
 	}
 
 
