@@ -51,6 +51,8 @@ Model* carModel = nullptr;
 Model* groundModel = nullptr;
 mat4 carModelMatrix(1.0f);
 
+//mat4 carModelMatrix =  glm::translate(vec3(0.0f, 5.0f, 0.0f));
+
 vec3 worldUp = vec3(0.0f, 1.0f, 0.0f);
 
 // Camera parameters
@@ -245,23 +247,27 @@ bool handleEvents(void)
 	// check keyboard state (which keys are still pressed)
 	const uint8_t* state = SDL_GetKeyboardState(nullptr);
 
-	// implement camera controls based on key states
+	// implement controls based on key states
+	const float speed = 10.f;
+	vec3 car_forward = vec3( 0, 0, 1 );
 	if(state[SDL_SCANCODE_UP])
 	{
-		printf("Key Up is pressed down\n");
+		T = translate(car_forward * speed * deltaTime) * T;
 	}
 	if(state[SDL_SCANCODE_DOWN])
 	{
-		printf("Key Down is pressed down\n");
+		T = translate(-car_forward * speed * deltaTime) * T;
 	}
 	if(state[SDL_SCANCODE_LEFT])
 	{
-		printf("Key Left is pressed down\n");
+		T = translate(vec3(1, 0, 0) * speed * deltaTime) * T;
 	}
 	if(state[SDL_SCANCODE_RIGHT])
 	{
-		printf("Key Right is pressed down\n");
+		T = translate(-vec3(1, 0, 0) * speed * deltaTime) * T;
 	}
+	carModelMatrix = T;
+
 
 	return quitEvent;
 }
