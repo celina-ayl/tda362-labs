@@ -181,7 +181,7 @@ void display()
 
 	// Ground
 	// Task 5: Uncomment this
-	//drawGround(modelViewProjectionMatrix);
+	drawGround(modelViewProjectionMatrix);
 
 	// car
 	modelViewProjectionMatrix = projectionMatrix * viewMatrix * carModelMatrix;

@@ -102,8 +102,8 @@ void main()
 	// Task 1.1 - Fill in the outgoing direction, wo, and the normal, n. Both
 	//            shall be normalized vectors in view-space.
 	///////////////////////////////////////////////////////////////////////////
-	vec3 wo = vec3(0.0);
-	vec3 n = vec3(0.0);
+	vec3 wo = vec3 normalize(-viewSpacePosition);
+	vec3 n = vec3 normalize(viewSpaceNormal);
 
 	vec3 base_color = material_color;
 	if(has_color_texture == 1)
