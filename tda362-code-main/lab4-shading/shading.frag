@@ -61,6 +61,11 @@ vec3 calculateDirectIllumiunation(vec3 wo, vec3 n, vec3 base_color)
 	//            to the light. If the light is backfacing the triangle,
 	//            return vec3(0);
 	///////////////////////////////////////////////////////////////////////////
+    const float distants_to_light = length(viewSpaceLightPosition - viewSpacePosition)
+	vec3 Li = point_light_intensity_multiplier * point_light_color * 1/(distants_to_light * distants_to_light)
+	vec3 wi = normalize(viewSpaceLightPosition-viewSpacePosition)
+	if(dot(wi, n) <= 0.0)
+		return vec3(0.0);
 
 	///////////////////////////////////////////////////////////////////////////
 	// Task 1.3 - Calculate the diffuse term and return that as the result
