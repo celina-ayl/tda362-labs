@@ -77,6 +77,19 @@ vec3 calculateDirectIllumiunation(vec3 wo, vec3 n, vec3 base_color)
 	//          reflected from that instead
 	///////////////////////////////////////////////////////////////////////////
 
+	vec3 wh = normalize(wi + wo);
+	float ndotwh = max(0.0001, dot(n, wh));
+	float ndotwo = max(0.0001, dot(n, wo));
+	float wodotwh = max(0.0001, dot(wo, wh));
+	float whdotwi = max(0.0001, dot(wh, wi));
+	float ndotwi = max(0.0001, dot(n, wi));
+	float D = ((material_shininess+2.0)/(2.0*PI)) * pow(ndotwh, material_shininess);
+	float F = material_fresnel + (1.0-material_fresnel)*pow((1.0 - whdotwi), 5.0); 
+	float G = min(1.0, min(2.0*(ndotwh*ndotwo/wodotwh), 2.0*(ndotwh*ndotwi/wodotwh)));
+	float brdf = (F * D * G)/(4*ndotwo*ndotwi);
+
+	return brdf * dot(n, wi) * Li;  
+
 	///////////////////////////////////////////////////////////////////////////
 	// Task 3 - Make your shader respect the parameters of our material model.
 	///////////////////////////////////////////////////////////////////////////
