@@ -129,7 +129,7 @@ void main()
 	///////////////////////////////////////////////////////////////////////////
 	// Task 1.4 - Make glowy things glow!
 	///////////////////////////////////////////////////////////////////////////
-	vec3 emission_term = vec3(0.0);
+	vec3 emission_term = material_emission;
 
 	vec3 final_color = direct_illumination_term + indirect_illumination_term + emission_term;
 
