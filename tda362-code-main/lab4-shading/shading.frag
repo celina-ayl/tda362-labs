@@ -90,6 +90,10 @@ vec3 calculateDirectIllumiunation(vec3 wo, vec3 n, vec3 base_color)
 
 	return brdf * dot(n, wi) * Li;  
 
+	//return vec3(D);
+	//return vec3(G);
+	//return vec3(F);
+
 	///////////////////////////////////////////////////////////////////////////
 	// Task 3 - Make your shader respect the parameters of our material model.
 	///////////////////////////////////////////////////////////////////////////
