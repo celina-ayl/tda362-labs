@@ -167,7 +167,20 @@ void initFullScreenQuad()
 	if(fullScreenQuadVAO == 0)
 	{
 		// Task 4.1
-		// ...
+		static const glm::vec2 positions[] = { { -1.0f, -1.0f }, { 1.0f, -1.0f }, { 1.0f, 1.0f },
+			                                   { -1.0f, -1.0f }, { 1.0f, 1.0f },  { -1.0f, 1.0f } };
+		
+	    GLuint positionBuffer;
+
+		glGenBuffers(1, &positionBuffer);
+		glBindBuffer(GL_ARRAY_BUFFER, positionBuffer);
+		glBufferData(GL_ARRAY_BUFFER, labhelper::array_length(positions) * sizeof(glm::vec2), positions, GL_STATIC_DRAW);
+
+		glGenVertexArrays(1, &fullScreenQuadVAO);
+		glBindVertexArray(fullScreenQuadVAO);
+		glBindBuffer(GL_ARRAY_BUFFER, positionBuffer);
+		glVertexAttribPointer(0, 2, GL_FLOAT, false, 0, 0);
+		glEnableVertexAttribArray(0);
 	}
 }
 
@@ -180,7 +193,15 @@ void drawFullScreenQuad()
 	// draw a quad at full screen
 	///////////////////////////////////////////////////////////////////////////
 	// Task 4.2
-	// ...
+    GLboolean depth_test_enabled;
+
+	glGetBooleanv(GL_DEPTH_TEST, &depth_test_enabled);
+	glDisable(GL_DEPTH_TEST);
+
+    glBindVertexArray(fullScreenQuadVAO);
+    glDrawArrays(GL_TRIANGLES, 0, 6);
+	if(depth_test_enabled)
+        glEnable(GL_DEPTH_TEST);
 }
 
 
@@ -338,6 +359,11 @@ void display(void)
 	///////////////////////////////////////////////////////////////////////////
 	// Task 4.3 - Render a fullscreen quad, to generate the background from the
 	//            environment map.
+	glUseProgram(backgroundProgram);             
+    labhelper::setUniformSlow(backgroundProgram, "environment_multiplier", environment_multiplier);
+    labhelper::setUniformSlow(backgroundProgram, "inv_PV", inverse(projectionMatrix * viewMatrix));
+    labhelper::setUniformSlow(backgroundProgram, "camera_pos", camera.position);
+    drawFullScreenQuad();
 	///////////////////////////////////////////////////////////////////////////
 
 	///////////////////////////////////////////////////////////////////////////
