@@ -390,6 +390,16 @@ void display()
 	// 1. Bind and clear default framebuffer
 	// 3. Bind the framebuffer to texture unit 0
 	// 4. Draw a quad over the entire viewport
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	glViewport(0, 0, w, h);
+	glClearColor(0.2f, 0.2f, 0.8f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	glUseProgram(postFxShader);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, newFB.colorTextureTarget);
+	labhelper::drawFullScreenQuad();
+
 
 	// Task 4: Set the required uniforms
 
