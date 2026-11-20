@@ -372,7 +372,8 @@ void display()
 	///////////////////////////////////////////////////////////////////////////
 	// draw scene from camera
 	///////////////////////////////////////////////////////////////////////////
-	glBindFramebuffer(GL_FRAMEBUFFER, 0); // to be replaced with another framebuffer when doing post processing
+	FboInfo &newFB = fboList[1];
+	glBindFramebuffer(GL_FRAMEBUFFER, newFB.framebufferId);
 	glViewport(0, 0, w, h);
 	glClearColor(0.2f, 0.2f, 0.8f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -387,7 +388,6 @@ void display()
 	///////////////////////////////////////////////////////////////////////////
 	// Task 3:
 	// 1. Bind and clear default framebuffer
-	// 2. Set postFxShader as active
 	// 3. Bind the framebuffer to texture unit 0
 	// 4. Draw a quad over the entire viewport
 
