@@ -76,13 +76,6 @@ vec3 calculateDirectIllumiunation(vec3 wo, vec3 n, vec3 base_color)
     //float visibility= (depth>=(shadowMapCoord.z/shadowMapCoord.w)) ? 1.0 : 0.0;
     float visibility = textureProj(shadowMapTex, shadowMapCoord);;
 
-	vec3 posToLight = normalize(viewSpaceLightPosition - viewSpacePosition);
-    float cosAngle = dot(posToLight, -viewSpaceLightDir);
-
-    // Spotlight with hard border:
-    float spotAttenuation = smoothstep(spotOuterAngle, spotInnerAngle, cosAngle);
-    visibility *= spotAttenuation;
-
 	///////////////////////////////////////////////////////////////////////////
 	// Task 1.2 - Calculate the radiance Li from the light, and the direction
 	//            to the light. If the light is backfacing the triangle,
@@ -192,7 +185,26 @@ void main()
 	// float spotAttenuation = (cosAngle > spotOuterAngle) ? 1.0 : 0.0;
 	float spotAttenuation = smoothstep(spotOuterAngle, spotInnerAngle, cosAngle);
 
-	visibility *= spotAttenuation;
+	if(useSpotLight == 1)
+	{
+		vec3 posToLight = normalize(viewSpaceLightPosition - viewSpacePosition);
+		float cosAngle = dot(posToLight, -viewSpaceLightDir);
+
+		if(useSoftFalloff == 0)
+		{
+			// Spotlight with hard border:
+			attenuation = (cosAngle > spotOuterAngle) ? 1.0 : 0.0;
+		}
+		else
+		{
+			// Spotlight with soft border:
+			attenuation = smoothstep(spotOuterAngle, spotInnerAngle, cosAngle);
+		}
+
+		visibility *= attenuation;
+	}
+
+	//visibility *= spotAttenuation;
 
 	vec3 wo = -normalize(viewSpacePosition);
 	vec3 n = normalize(viewSpaceNormal);
