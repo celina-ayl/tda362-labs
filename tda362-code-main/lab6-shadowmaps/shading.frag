@@ -72,10 +72,15 @@ vec3 calculateDirectIllumiunation(vec3 wo, vec3 n, vec3 base_color)
 	// return vec3(1.f);
 	vec3 direct_illum = base_color;
 
-	vec4 shadowMapCoord = lightMatrix * vec4(viewSpacePosition, 1.f);
-
 	float depth = texture(shadowMapTex, shadowMapCoord.xy / shadowMapCoord.w).x;
 	float visibility = (depth >= (shadowMapCoord.z / shadowMapCoord.w)) ? 1.0 : 0.0;
+
+	vec3 posToLight = normalize(viewSpaceLightPosition - viewSpacePosition);
+    float cosAngle = dot(posToLight, -viewSpaceLightDir);
+
+    // Spotlight with hard border:
+    float spotAttenuation = smoothstep(spotOuterAngle, spotInnerAngle, cosAngle);
+    visibility *= spotAttenuation;
 
 	///////////////////////////////////////////////////////////////////////////
 	// Task 1.2 - Calculate the radiance Li from the light, and the direction
