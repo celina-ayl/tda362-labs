@@ -179,6 +179,14 @@ void main()
 	float visibility = 1.0;
 	float attenuation = 1.0;
 
+	vec3 posToLight = normalize(viewSpaceLightPosition - viewSpacePosition);
+	float cosAngle = dot(posToLight, -viewSpaceLightDir);
+
+	// Spotlight with hard border:
+	// float spotAttenuation = (cosAngle > spotOuterAngle) ? 1.0 : 0.0;
+	float spotAttenuation = smoothstep(spotOuterAngle, spotInnerAngle, cosAngle);
+
+	visibility *= spotAttenuation;
 
 	vec3 wo = -normalize(viewSpacePosition);
 	vec3 n = normalize(viewSpaceNormal);
