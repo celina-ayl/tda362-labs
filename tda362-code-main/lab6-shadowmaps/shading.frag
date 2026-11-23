@@ -57,7 +57,7 @@ layout(location = 0) out vec4 fragmentColor;
 // Light Matrix
 uniform mat4 lightMatrix;
 in vec4 shadowMapCoord;
-layout(binding = 10) uniform sampler2D shadowMapTex;
+layout(binding = 10) uniform sampler2DShadow shadowMapTex;
 
 
 uniform int useSpotLight;
@@ -70,10 +70,11 @@ uniform float spotOuterAngle;
 vec3 calculateDirectIllumiunation(vec3 wo, vec3 n, vec3 base_color)
 {
 	// return vec3(1.f);
-	vec3 direct_illum = base_color;
+	vec3 direct_illum = base_color;\
 
-	float depth = texture(shadowMapTex, shadowMapCoord.xy / shadowMapCoord.w).x;
-	float visibility = (depth >= (shadowMapCoord.z / shadowMapCoord.w)) ? 1.0 : 0.0;
+    //float depth= texture(shadowMapTex, shadowMapCoord.xy/shadowMapCoord.w).r;
+    //float visibility= (depth>=(shadowMapCoord.z/shadowMapCoord.w)) ? 1.0 : 0.0;
+    float visibility = textureProj(shadowMapTex, shadowMapCoord);;
 
 	vec3 posToLight = normalize(viewSpaceLightPosition - viewSpacePosition);
     float cosAngle = dot(posToLight, -viewSpaceLightDir);
