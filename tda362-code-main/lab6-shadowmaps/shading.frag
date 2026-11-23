@@ -57,11 +57,8 @@ layout(location = 0) out vec4 fragmentColor;
 // Light Matrix
 uniform mat4 lightMatrix;
 in vec4 shadowMapCoord;
-#if SOLUTION_USE_BUILTIN_SHADOW_TEST
-layout(binding = 10) uniform sampler2DShadow shadowMapTex;
-#else  // USE_BUILTIN_SHADOW_TEST
 layout(binding = 10) uniform sampler2D shadowMapTex;
-#endif // ~ USE_BUILTIN_SHADOW_TEST
+
 
 uniform int useSpotLight;
 uniform int useSoftFalloff;
