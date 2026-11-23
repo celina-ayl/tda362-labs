@@ -350,6 +350,11 @@ void display(void)
     shadowMapFB.resize(shadowMapResolution, shadowMapResolution);
     }
 
+    if (usePolygonOffset) {
+    glEnable(GL_POLYGON_OFFSET_FILL);
+    glPolygonOffset(polygonOffset_factor, polygonOffset_units);
+}
+
 	///////////////////////////////////////////////////////////////////////////
 	// Draw Shadow Map
 	glBindFramebuffer(GL_FRAMEBUFFER, shadowMapFB.framebufferId);
@@ -364,6 +369,9 @@ void display(void)
     screen.m_emission_texture.gl_id = shadowMapFB.colorTextureTarget;
 	///////////////////////////////////////////////////////////////////////////
 
+	if (usePolygonOffset) {
+    glDisable(GL_POLYGON_OFFSET_FILL);
+}
 	///////////////////////////////////////////////////////////////////////////
 	// Draw from camera
 	///////////////////////////////////////////////////////////////////////////
