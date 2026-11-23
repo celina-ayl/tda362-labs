@@ -54,13 +54,32 @@ uniform vec3 viewSpaceLightPosition;
 ///////////////////////////////////////////////////////////////////////////////
 layout(location = 0) out vec4 fragmentColor;
 
+// Light Matrix
+uniform mat4 lightMatrix;
+in vec4 shadowMapCoord;
+#if SOLUTION_USE_BUILTIN_SHADOW_TEST
+layout(binding = 10) uniform sampler2DShadow shadowMapTex;
+#else  // USE_BUILTIN_SHADOW_TEST
+layout(binding = 10) uniform sampler2D shadowMapTex;
+#endif // ~ USE_BUILTIN_SHADOW_TEST
 
+uniform int useSpotLight;
+uniform int useSoftFalloff;
+uniform vec3 viewSpaceLightDir;
+uniform float spotInnerAngle;
+uniform float spotOuterAngle;
 
 
 vec3 calculateDirectIllumiunation(vec3 wo, vec3 n, vec3 base_color)
 {
 	// return vec3(1.f);
 	vec3 direct_illum = base_color;
+
+	vec4 shadowMapCoord = lightMatrix * vec4(viewSpacePosition, 1.f);
+
+	float depth = texture(shadowMapTex, shadowMapCoord.xy / shadowMapCoord.w).x;
+	float visibility = (depth >= (shadowMapCoord.z / shadowMapCoord.w)) ? 1.0 : 0.0;
+
 	///////////////////////////////////////////////////////////////////////////
 	// Task 1.2 - Calculate the radiance Li from the light, and the direction
 	//            to the light. If the light is backfacing the triangle,
@@ -108,7 +127,7 @@ vec3 calculateDirectIllumiunation(vec3 wo, vec3 n, vec3 base_color)
 	vec3 dielectric_term = brdf * (ndotwi*Li) + (1.0-F) * diffuse_term;
 	vec3 metal_term = brdf * base_color * (ndotwi*Li);
 	direct_illum = material_metalness * metal_term + (1.0-material_metalness) * dielectric_term;
-	return direct_illum;
+	return visibility * direct_illum;
 }
 
 vec3 calculateIndirectIllumination(vec3 wo, vec3 n, vec3 base_color)
