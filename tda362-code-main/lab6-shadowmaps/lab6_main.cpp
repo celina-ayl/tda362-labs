@@ -75,14 +75,14 @@ enum ClampMode
 };
 
 FboInfo shadowMapFB;
-int shadowMapResolution = 1024;
+int shadowMapResolution = 128;
 int shadowMapClampMode = ClampMode::Edge;
 bool shadowMapClampBorderShadowed = false;
 bool usePolygonOffset = false;
 bool useSoftFalloff = false;
 bool useHardwarePCF = false;
-float polygonOffset_factor = 2.0f;
-float polygonOffset_units = 6000.0f;
+float polygonOffset_factor = 6.0f;
+float polygonOffset_units = 15000.0f;
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -372,6 +372,17 @@ void display(void)
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
 		vec4 border(shadowMapClampBorderShadowed ? 0.f : 1.f);
 		glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, &border.x);
+	}
+
+	if(useHardwarePCF)
+	{
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	}
+	else
+	{
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	}
 
 	// This line is to avoid some warnings from OpenGL for having the shadowmap attached to texture unit 0
