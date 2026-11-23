@@ -82,7 +82,7 @@ bool usePolygonOffset = false;
 bool useSoftFalloff = false;
 bool useHardwarePCF = false;
 float polygonOffset_factor = 2.0f;
-float polygonOffset_units = 10.0f;
+float polygonOffset_units = 6000.0f;
 
 
 ///////////////////////////////////////////////////////////////////////////////
