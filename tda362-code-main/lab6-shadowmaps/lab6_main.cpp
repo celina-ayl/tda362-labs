@@ -342,9 +342,22 @@ void display(void)
 	// Set up shadow map parameters
 	///////////////////////////////////////////////////////////////////////////
 	// Task 1
+    if (shadowMapFB.width != shadowMapResolution || shadowMapFB.height != shadowMapResolution) {
+    shadowMapFB.resize(shadowMapResolution, shadowMapResolution);
+    }
 
 	///////////////////////////////////////////////////////////////////////////
 	// Draw Shadow Map
+	glBindFramebuffer(GL_FRAMEBUFFER, shadowMapFB.framebufferId);
+	glViewport(0, 0, shadowMapFB.width, shadowMapFB.height);
+	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+	glClearDepth(1.0);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	drawScene(simpleShaderProgram, lightViewMatrix, lightProjMatrix, lightViewMatrix, lightProjMatrix);
+
+    labhelper::Material &screen = landingpadModel->m_materials[8];
+    screen.m_emission_texture.gl_id = shadowMapFB.colorTextureTarget;
 	///////////////////////////////////////////////////////////////////////////
 
 	///////////////////////////////////////////////////////////////////////////
